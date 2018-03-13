@@ -19,7 +19,7 @@ function createNodesAndEdges(element, index, array){
 }
 
 // Eu acho que as arestas estão duplicadas.
-$.getJSON("raw_data_spotify.json", function(json){
+var dataArtists = $.getJSON("raw_data_spotify.json", function(json){
   console.log(json.items);
   var artistas = json.items;
   var nodes = artistas.map(createNodesAndEdges);
@@ -33,8 +33,7 @@ $.getJSON("raw_data_spotify.json", function(json){
     }
   }
 
-  console.log(d);
-
-  var data = {nodes: nodes, edges: d};
-  console.log(json);
+  return {nodes: nodes, edges: d};
 });
+
+//console.log(dataArtists);
