@@ -1063,7 +1063,7 @@
       "href" : null,
       "total" : 4448967
     },
-    "genres" : [ ],
+    "genres" : [ "funk", "pop", "latin pop"],
     "href" : "https://api.spotify.com/v1/artists/7FNnA9vBm6EKceENgCGRMb",
     "id" : "7FNnA9vBm6EKceENgCGRMb",
     "images" : [ {
