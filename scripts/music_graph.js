@@ -11,7 +11,8 @@ const tooltipDiv = d3.select("body")
 const color = d3.scaleOrdinal(d3.schemeCategory20);
 
 const simulation = d3.forceSimulation()
-    .force('link', d3.forceLink().id(d => d.id))
+    .force('link', d3.forceLink().distance(50).id(d => d.id))
+    .force("charge", d3.forceManyBody().strength(-10))
     .force('collide', d3.forceCollide(30))
     .force('center', d3.forceCenter((width / 2), height / 2))
     .force('genreX', d3.forceX(genreX).strength(0.02))
@@ -232,9 +233,9 @@ function dragged(d) {
 
 function genreX(n) {
     const genres = n.genres.join('-');
-    if (genres.includes('hip hop') || genres.includes('rap')) {
+    if (genres.includes('indietronica') || genres.includes('synthpop')) {
         return width / 4 * 3;
-    } else if (genres.includes('house')) {
+    } else if (genres.includes('candy pop')) {
         return width / 4;
     } else {
         return width;
@@ -243,7 +244,7 @@ function genreX(n) {
 
 function genreY(n) {
     const genres = n.genres.join('-');
-    if (genres.length === 0 && !genres.includes('hip hop') && !genres.includes('rap') && genres.includes('house')) {
+    if (genres.length === 0 && !genres.includes('indietronica') && !genres.includes('synthpop') && genres.includes('candy pop')) {
         return height / 4;
     } else {
         return height / 2;
@@ -262,9 +263,15 @@ function createEdges(element, index, array){
     if(array[i].id != element.id){
       for(var j = 0; j < element.genres.length; j++){
         for(var k = 0; k < array[i].genres.length; k++){
-          if(element.genres[j] === array[i].genres[k]){
+          if((element.genres[j] === array[i].genres[k]) &&
+           (element.genres[j]!== 'pop') &&
+           (element.genres[j]!== 'dance pop') &&
+           (element.genres[j]!== 'post-teen pop') &&
+           (element.genres[j]!== 'metropopolis')
+        ){
             var edge = {source: element.id, target: array[i].id, type: element.genres[j]};
             edges.push(edge);
+            break;
           }
         }
       }
